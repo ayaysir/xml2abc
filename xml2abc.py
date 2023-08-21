@@ -662,7 +662,7 @@ def sortMeasure (voice, m):
 def getPartlist (ps):   # correct part-list (from buggy xml-software)
     xs = [] # the corrected part-list
     e = []  # stack of opened part-groups
-    for x in ps.getchildren (): # insert missing stops, delete double starts
+    for x in list(ps): # insert missing stops, delete double starts
         if x.tag ==  'part-group':
             num, type = x.get ('number'), x.get ('type')
             if type == 'start':
@@ -1475,7 +1475,7 @@ class Parser:
                 herhaal, lbrk = 0, ''
                 s.msr.reset ()
                 s.curalts = {}  # passing accidentals are reset each measure
-                es = maat.getchildren ()
+                es = list(maat)
                 for i, e in enumerate (es):
                     if   e.tag == 'note':       s.doNote (e)
                     elif e.tag == 'attributes': s.doAttr (e)
